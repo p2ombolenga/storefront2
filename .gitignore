@@ -1,0 +1,16 @@
+.vscode
+db.sqlite3
+Pipfile
+Pipfile.lock
+likes/__pycache__
+likes/migrations/__pycache__
+playground/__pycache__
+playground/migrations/__pycache__
+store/__pycache__
+store/migrations/__pycache__
+storefront/__pycache__
+storefront/migrations/__pycache__
+store_custom/__pycache__
+store_custom/migrations/__pycache__
+tags/__pycache__
+tags/migrations/__pycache__
