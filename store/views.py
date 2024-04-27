@@ -6,16 +6,20 @@ from .models import Product, Collection
 from .serializers import ProductSerializer, CollectionSerializer
 
 
-@api_view()
+@api_view(['GET', 'POST'])
 def product_list(request):
-    queryset = Product.objects.select_related('collection').all()
-    serializer = ProductSerializer(queryset, many=True, context={ 'request': request })
-    return Response(serializer.data)
+    if request.method == 'GET':
+        queryset = Product.objects.select_related('collection').all()
+        serializer = ProductSerializer(queryset, many=True, context={ 'request': request })
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        return Response('Ok')
  
 @api_view()
 def product_detail(request, id):
     product = get_object_or_404(Product, pk=id)
-    serializer = ProductSerializer(product)
+    serializer = ProductSerializer(product) 
     return Response(serializer.data)
 
 @api_view()
