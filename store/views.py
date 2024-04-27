@@ -15,14 +15,23 @@ def product_list(request):
     elif request.method == 'POST':
         serializer = ProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print(serializer.validated_data)
-        return Response('Ok')
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
  
-@api_view()
+@api_view(['GET', 'PUT'])
 def product_detail(request, id):
     product = get_object_or_404(Product, pk=id)
-    serializer = ProductSerializer(product) 
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = ProductSerializer(product) 
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        product = Product.objects.get(pk=id)
+        serializer = ProductSerializer(product, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view()
 def collection_detail(request, pk):
