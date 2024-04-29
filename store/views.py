@@ -16,7 +16,7 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     
     def get_serializer_context(self):
-        return {'request': self.requmodelsest}
+        return {'request': self.request}
 
     def destroy(self, request, *args, **kwargs):
         if OrderItem.objects.filter(product_id=kwargs['pk']).count() > 0:
@@ -40,6 +40,12 @@ class CollectionViewSet(ModelViewSet):
           return super().destroy(request, *args, **kwargs)
     
 
-class ReviewSet(ModelViewSet):
-    queryset = Review.objects.all()
+class ReviewViewSet(ModelViewSet):
     serializer_class = ReviewSerializer
+
+
+    def get_queryset(self):
+        return Review.objects.filter(product_id=self.kwargs['product_pk'])
+
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}        
