@@ -35,7 +35,8 @@ class ProductViewSet(ModelViewSet):
 class CollectionViewSet(ModelViewSet):
 
     queryset = Collection.objects.annotate(products_count=Count('products')).all()
-    serializer_class = CollectionSerializer  
+    serializer_class = CollectionSerializer
+    pagination_class = DefaultPagination  
 
     def destroy(self, request, *args, **kwargs):
           if Product.objects.filter(collection=kwargs['pk']).count() > 0:
