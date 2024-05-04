@@ -40,7 +40,7 @@ class SimpileProductSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     product = SimpileProductSerializer()
     total_price = serializers.SerializerMethodField()
-
+ 
     def get_total_price(self, cartitem: CartItem):
         return cartitem.quantity * cartitem.product.unit_price
     class Meta:
