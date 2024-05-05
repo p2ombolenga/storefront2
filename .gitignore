@@ -10,7 +10,7 @@ store/__pycache__
 store/migrations/__pycache__
 storefront/__pycache__
 storefront/migrations/__pycache__
-store_custom/__pycache__
-store_custom/migrations/__pycache__
+core/__pycache__
+core/migrations/__pycache__
 tags/__pycache__
 tags/migrations/__pycache__
