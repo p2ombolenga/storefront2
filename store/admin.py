@@ -51,11 +51,16 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['user']
     list_display = ['first_name', 'last_name', 'membership', 'orders_count']
     list_editable = ['membership']
-    ordering = ['first_name','last_name']
+    ordering = ['user__first_name','user__last_name']
     list_per_page = 25
-    search_fields = ['first_name__istartswith', 'last_name__istartswith']
+    list_select_related = ['user']
+    search_fields = ['user__first_name__istartswith', 'user__last_name__istartswith']
+    
+    def user(self):
+        return self.user.username
 
     @admin.display(ordering='orders_count')
     def orders_count(self, customer):
