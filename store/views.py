@@ -8,8 +8,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.filters import SearchFilter, OrderingFilter 
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
 from .permissions import IsAdminOrReadOnly, ViewCustomerHistoryPermission, FulldDjangoModelPermissions
-from .models import Product, Collection, OrderItem, Review, Cart, CartItem, Customer
-from .serializers import ProductSerializer, CollectionSerializer, ReviewSerializer, CartSerializer, CartItemSerializer, AddCartItemSerializer, UpdateCartItemSerializer, CustomerSerializer
+from .models import Product, Collection, OrderItem, Review, Cart, CartItem, Customer, Order
+from .serializers import ProductSerializer, CollectionSerializer, ReviewSerializer, \
+    CartSerializer, CartItemSerializer, AddCartItemSerializer, UpdateCartItemSerializer, CustomerSerializer, OrderSerializer
 from .filters import ProductFilter
 from .pagination import DefaultPagination
 
@@ -109,3 +110,8 @@ class CustomerViewSet(ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+        
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
