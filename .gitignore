@@ -1,7 +1,5 @@
 .vscode
 db.sqlite3
-Pipfile
-Pipfile.lock
 likes/__pycache__
 likes/migrations/__pycache__
 playground/__pycache__
